@@ -1,0 +1,29 @@
+Coverity Playground - Kill your working hours
+
+    This place will help you play with all the fancy functionalies such as Jenkins, 
+    JIRA, Web API, and E-mail notification.
+
+    Jenkins
+	
+    - Setup Jenkins user to the same as Coverity user at /etc/default/jenkins
+        JENKINS_USER=yuan
+        JENKINS_GROUP=yuan
+    - Change Jenkins file owner to Coverity user e.g.
+        chown yuan:yuan /var/lib/jenkins
+        chown yuan:yuan /var/cache/jenkins
+        chown yuan:yuan /var/log/jenkins
+    - restart Jenkins
+        sudo service restart jenkins
+    - Create freestyle project in Jenkins
+    - Run run.sh in Jenkins to initiate Coverity configure/build/analyze/commit
+    
+    LDAP
+    
+    - There is really not so much to say about LDAP. Google "LDAP setup" and you will
+      find some easy setup for LDAP itself.
+    - On CC side, go to system->LDAP configuration->create a new LDAP
+      e.g.
+    	  Base DN: dc=coverity,dc=com
+	  Bind DN: cn=admin,dc=coverity,dc=com
+    - Go to Users & Groups, users can be either createdor matched from LDAP
+    - Tip: LDAP default user name is initial of first name + las name, like ychen for myself
