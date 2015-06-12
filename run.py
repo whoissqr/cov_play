@@ -46,11 +46,15 @@ def cov_temp():
             cov-configure --config cov_config/coverity_config.xml --gcc --template
             cov-build --config cov_config/coverity_config.xml --dir cov_idir --record-only make
             cov-build --config cov_config/coverity_config.xml --dir cov_idir --replay -j $cores
-            cov-import-scm --dir cov_idir --scm git --log cov_scm_log.txt
+            #cov-import-scm --dir cov_idir --scm git --log cov_scm_log.txt
             cov-analyze --dir cov_idir --all --aggressiveness-level high --security --concurrency -j $cores
         '''
     runBash(temp)
 
+def git_commit():
+    runBash('git commit')
+    print 'Now you can commit on git.'
+    
 def cov_commit():
     global FORCE_COMMIT
     print "Performing commit"
@@ -72,7 +76,11 @@ def cov_commit():
             return
         else:
             print "No new defect is introduced"
-    runBash(base_commit)
+
+    #runBash(base_commit)
+    
+    #Commit on git
+    git_commit()
 
 def main():
     controller()

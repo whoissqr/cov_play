@@ -1,10 +1,16 @@
 Coverity Playground - Kill your working hours
 
-    This place will help you play with all the fancy functionalies such as Jenkins, 
+    This place will help you play with all the fancy functionalies such as Jenkins,
     JIRA, Web API, and E-mail notification.
 
+    Work flow
+    - developers use run.py to analyse their code by Coverity before check-in into
+      git
+    - Server CI runs run.sh for a nightly build and cov-commit-defect to Coverity
+      connect
+
     Jenkins
-	
+
     - Setup Jenkins user to the same as Coverity user at /etc/default/jenkins
         JENKINS_USER=yuan
         JENKINS_GROUP=yuan
@@ -16,14 +22,22 @@ Coverity Playground - Kill your working hours
         sudo service restart jenkins
     - Create freestyle project in Jenkins
     - Run run.sh in Jenkins to initiate Coverity configure/build/analyze/commit
-    
+
     LDAP
-    
+
     - There is really not so much to say about LDAP. Google "LDAP setup" and you will
       find some easy setup for LDAP itself.
     - On CC side, go to system->LDAP configuration->create a new LDAP
       e.g.
-    	  Base DN: dc=coverity,dc=com
-	  Bind DN: cn=admin,dc=coverity,dc=com
-    - Go to Users & Groups, users can be either createdor matched from LDAP
-    - Tip: LDAP default user name is initial of first name + las name, like ychen for myself
+          Base DN: dc=coverity,dc=com
+      Bind DN: cn=admin,dc=coverity,dc=com
+    - Go to Users & Groups, users can be either created or matched from LDAP
+    - Tip: LDAP default user name is initial of first name + last name, like
+      ychen for myself
+
+    git defect auto assignment
+
+    - Projects & Streams -> select stream -> Owner Assignment -> Derieved from SCM
+    - The git user name read by Coverity is in e-mail format. Therefore, you need a
+      simple mapping in System -> Automatic Owner Assignment
+    - Import customized .json file

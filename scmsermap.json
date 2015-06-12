@@ -1,0 +1,9 @@
+{
+  "map" : [ {
+    "scmUsername" : "([a-z])[a-z]*\\.([a-z]+)",
+    "cimUsername" : "$1$2"
+  }, {
+    "scmUsername" : "ch.*@.*",
+    "cimUsername" : "ychen"
+  } ]
+}
