@@ -4,6 +4,7 @@ import argparse
 import re
 
 FORCE_COMMIT = False
+COMMIT_STREAM = "Test"
 
 #This function takes Bash commands and returns them
 def runBash(cmd):
@@ -14,8 +15,12 @@ def runBash(cmd):
 #Function to control option parsing in Python
 def controller():
     global FORCE_COMMIT
+    global COMMIT_STREAM
     #To-Do exception handling
     parser = argparse.ArgumentParser(description='Coverity build script')
+    parser.add_argument('-s', '--stream',
+                        default="Test",
+                        help='specify commit stream. Default is Test')
     parser.add_argument('-f', '--force',
                         nargs='?',
                         default=False,
@@ -25,19 +30,13 @@ def controller():
     args = parser.parse_args()
     #print parser.parse_args('-f'.split())
     #print parser.parse_args(''.split())
-    if args.force is None:
-        parser.print_help()
-    else:
-        FORCE_COMMIT = args.force
 
 def cov_temp():
     temp = '''
-            cores="$(nproc)"
             echo "User: $USER"
             echo "PATH: $PATH"
-            echo "Cores: $cores"
 
-            cd $HOME/coverity
+            cd $HOME/cov_play
 
             #clean up
             make clean
@@ -45,9 +44,9 @@ def cov_temp():
 
             cov-configure --config cov_config/coverity_config.xml --gcc --template
             cov-build --config cov_config/coverity_config.xml --dir cov_idir --record-only make
-            cov-build --config cov_config/coverity_config.xml --dir cov_idir --replay -j $cores
+            cov-build --config cov_config/coverity_config.xml --dir cov_idir --replay -j auto
             #cov-import-scm --dir cov_idir --scm git --log cov_scm_log.txt
-            cov-analyze --dir cov_idir --all --aggressiveness-level high --security --concurrency -j $cores
+            cov-analyze --dir cov_idir --all --aggressiveness-level high --security --concurrency -j auto
         '''
     runBash(temp)
 
@@ -57,9 +56,12 @@ def git_commit():
     
 def cov_commit():
     global FORCE_COMMIT
-    print "Performing commit"
+    global COMMIT_STREAM
+    print "Performing commit to stream: " + COMMIT_STREAM
 
-    base_commit = "cov-commit-defects --dir cov_idir --host 192.168.221.1 --port 8080 --stream Test --user admin --password coverity"
+    base_commit = "cov-commit-defects --dir cov_idir --host 192.168.221.1 --port 8080 --stream " +\
+                  COMMIT_STREAM +\
+                  " --user admin --password coverity"
     preview_commit = base_commit + " --preview-report-v2 report_v2.json"
 
     #Coverity defect check
