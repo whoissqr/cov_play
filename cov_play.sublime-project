@@ -1,0 +1,14 @@
+{
+    "folders":
+    [
+        {
+            "path": "."
+        }
+    ],
+    "build_systems":
+      [
+          {
+            "cmd": ["./run.py", "--stream", "Test", "--force"]
+          }
+      ]
+}
