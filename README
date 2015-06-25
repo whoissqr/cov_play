@@ -4,6 +4,7 @@ Coverity Playground - Kill your working hours
     JIRA, Web API, and E-mail notification.
 
     Work flow
+
     - developers use run.py to analyse their code by Coverity before check-in into
       git
     - Server CI runs run.sh for a nightly build and cov-commit-defect to Coverity
@@ -30,7 +31,7 @@ Coverity Playground - Kill your working hours
     - On CC side, go to system->LDAP configuration->create a new LDAP
       e.g.
           Base DN: dc=coverity,dc=com
-      Bind DN: cn=admin,dc=coverity,dc=com
+          Bind DN: cn=admin,dc=coverity,dc=com
     - Go to Users & Groups, users can be either created or matched from LDAP
     - Tip: LDAP default user name is initial of first name + last name, like
       ychen for myself

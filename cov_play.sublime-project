@@ -8,7 +8,7 @@
     "build_systems":
       [
           {
-            "cmd": ["./run.py", "--stream", "Test", "--force"]
+            "cmd": ["./run.py", "--stream", "Demo", "--force"]
           }
       ]
 }

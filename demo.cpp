@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//Demo Case 1
 int square(int x)
 {
 	return x*x;
@@ -23,6 +24,7 @@ int example(int a, int b, int x, int y)
 	return result;
 }
 
+//Demo Case 2
 void test(vector<int> &v1, vector<int> &v2)
 {
 	vector<int>::iterator i = v1.begin();

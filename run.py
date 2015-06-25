@@ -4,7 +4,7 @@ import argparse
 import re
 
 FORCE_COMMIT = False
-COMMIT_STREAM = "Test"
+COMMIT_STREAM = "Demo"
 
 #This function takes Bash commands and returns them
 def runBash(cmd):

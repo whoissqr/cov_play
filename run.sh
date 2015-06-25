@@ -7,10 +7,10 @@ User: $USER
 PATH: $PATH
 "
 
-STREAM="Test"
+STREAM="Demo"
 if [ -z "$1" ]
     then
-        echo "use default commit stream: Test"
+        echo "use default commit stream: Demo"
     else
         echo "Commit stream: $1"
         STREAM=$1
