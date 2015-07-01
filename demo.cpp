@@ -4,6 +4,8 @@
 
 using namespace std;
 
+//I feel like these examples are not attractive to customers at all
+
 //Demo Case 1
 int square(int x)
 {
