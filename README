@@ -46,7 +46,10 @@ Coverity Playground - Kill your working hours
 
     git defect auto assignment
 
+    - Ensure test e-mail is sent and received in email notification and delivery 
     - Projects & Streams -> select stream -> Owner Assignment -> Derieved from SCM
     - The git user name read by Coverity is in e-mail format. Therefore, you need a
       simple mapping in System -> Automatic Owner Assignment
-    - Import customized .json file
+      - Import customized .json file
+    - Add cov-import-scm between cov-build and cov-analyze to import SCM data
+
