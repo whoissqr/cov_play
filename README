@@ -24,6 +24,14 @@ Coverity Playground - Kill your working hours
     - Create freestyle project in Jenkins
     - Run run.sh in Jenkins to initiate Coverity configure/build/analyze/commit
 
+    - Install and configure Coverity Jenkins plugin
+    - Add Coverity in post build actions
+      - Specify streams
+      - Select defect filter options (e.g. select impact is among 'high')
+      - Select 'Fail the build if matching defects are found'
+      - The options can take effect without using Coverity plugin to build/analyze/
+        commits, etc. You can use your own build scritxl
+
     LDAP
 
     - There is really not so much to say about LDAP. Google "LDAP setup" and you will
