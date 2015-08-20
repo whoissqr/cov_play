@@ -5,8 +5,12 @@ Coverity Playground - Kill your working hours
 
     Work flow
 
-    - developers use run.py to analyse their code by Coverity before check-in into
-      git
+    - developers use run.py to analyse only the modified code by Coverity before
+      check-in into git
+        - fast incremental build/analyze
+        - clean before check-in
+        - No inter-procedural defects
+
     - Server CI runs run.sh for a nightly build and cov-commit-defect to Coverity
       connect
 
