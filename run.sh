@@ -1,4 +1,5 @@
 #! /bin/bash
+
 # Demo script that can be run on centralized server for nightly build
 
 echo "

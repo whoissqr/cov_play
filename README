@@ -10,7 +10,6 @@ Coverity Playground - Kill your working hours
         - fast incremental build/analyze
         - clean before check-in
         - No inter-procedural defects
-
     - Server CI runs run.sh for a nightly build and cov-commit-defect to Coverity
       connect
 

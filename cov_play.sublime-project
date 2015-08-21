@@ -5,9 +5,7 @@
 			"cmd":
 			[
 				"./run.py",
-				"--stream",
-				"Demo",
-				"--force"
+				"cbuild"
 			]
 		}
 	],
