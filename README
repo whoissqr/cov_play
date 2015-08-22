@@ -64,8 +64,8 @@ Coverity Playground - Kill your working hours
     - Ensure test e-mail is sent and received in email notification and delivery
     - Setup view under 'Issues: by Snapshot' for a component
     - Setup 'notification' for the view - users/groups and date/time
-    - default e-mail contains accumulation of defects of all time. Setup 'Snapshot Scope'
-      for newly introduced defects only
+    - default e-mail contains accumulation of defects of all time. Setup 'Snapshot 
+      Scope' for newly introduced defects only
       e.g. Show: last()
            Compared to: lastBefore(last())
 
