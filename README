@@ -86,5 +86,5 @@ Coverity Playground - Kill your working hours
     - Consider the style in incremental build in run.py, which gives you a plain text
       for the details of defects
     - Setup ~/.coverity/coverity.conf. But this file only works with cov-run-desktop, 
-      which means you still have to give options like 'host' and 'user' in other commands 
+      which means you still have to give options like 'host', 'user' in other commands 
 
