@@ -27,7 +27,7 @@ rm -rf cov_idir cov_config
 
 #Step 1: Configure
 #configure a standard gcc template compiler, which is stored in xml
-cov-configure --config cov_config/coverity_config.xml --gcc --template
+cov-configure --config cov_config/coverity_config.xml --gcc
 
 #Step 2: Build
 #record native build (C/C++ only)

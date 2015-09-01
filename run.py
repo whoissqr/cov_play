@@ -8,6 +8,7 @@ import re
 
 FORCE_COMMIT = False
 COMMIT_STREAM = "Demo"
+HOST = "192.168.221.1"
 
 #This function takes Bash commands and returns them
 def runBash(cmd):
@@ -54,7 +55,7 @@ def controller():
 
 # Check if a target stream exists on CC
 def streamExists(stream):
-    build = "cov-manage-im --host 192.168.221.1 --user admin --password coverity --mode streams --show --name " + stream + " | wc -l"
+    build = "cov-manage-im --host %s --user admin --password coverity --mode streams --show --name %s | wc -l" % (HOST, COMMIT_STREAM)
     return returnBash(build).find('2') != -1
 
 # clean build: clean up everything and start a full build and analyze
@@ -66,7 +67,7 @@ def clean_build():
             make clean
             rm -rf cov_idir cov_config report_v2.json
 
-            cov-configure --config cov_config/coverity_config.xml --gcc --template
+            cov-configure --config cov_config/coverity_config.xml --gcc
             cov-build --config cov_config/coverity_config.xml --dir cov_idir --record-only make
             cov-build --config cov_config/coverity_config.xml --dir cov_idir --replay -j auto
             cov-import-scm --dir cov_idir --scm git --log cov_scm_log.txt
@@ -80,7 +81,6 @@ def clean_build():
 # - Coverity emits for the modified files only
 # - Based on version control, analyze is only done for modified files
 # - ONLY for fast speed!!!
-# To-Do: --restrict-modified-file-regex is hard-coded
 def inc_build():
     build = '''
             cd $HOME/cov_play
@@ -88,12 +88,12 @@ def inc_build():
             if [ -d "cov_idir" ]; then
                 cov-build --config cov_config/coverity_config.xml --dir cov_idir --record-only make
                 cov-build --config cov_config/coverity_config.xml --dir cov_idir --replay -j auto
-                cov-run-desktop --analyze-scm-modified --dir cov_idir --host 192.168.221.1 --stream Demo --user admin --password coverity --scm git --restrict-modified-file-regex "Demo.cpp" --json-output-v3 report_desktop.json
-                echo "Read detail of defects in report_desktop.json"
+                cov-run-desktop --analyze-scm-modified --dir cov_idir --host %s --stream %s --user admin --password coverity --scm git --restrict-modified-file-regex ".cpp" --json-output-v3 desktop_report.json
+                echo "Read detail of defects in desktop_report.json"
             else
                 echo "Error: No incremental build as cov_idir is not found. Run clean build first."
             fi
-        '''
+        ''' % (HOST, COMMIT_STREAM)
     runBash(build)
 
 def git_commit():
@@ -101,13 +101,9 @@ def git_commit():
 
 # perform preview commit and git commit
 def cov_commit():
-    global FORCE_COMMIT
-    global COMMIT_STREAM
-    print "Performing commit to stream: " + COMMIT_STREAM
+    print "Performing commit to stream: " + COMMIT_STREAM + "..."
 
-    base_commit = "cov-commit-defects --dir cov_idir --host 192.168.221.1 --port 8080 --stream " +\
-                  COMMIT_STREAM +\
-                  " --user admin --password coverity"
+    base_commit = "cov-commit-defects --dir cov_idir --host %s --stream %s --user admin --password coverity" % (HOST, COMMIT_STREAM)
     preview_commit = base_commit + " --preview-report-v2 report_v2.json"
 
     # Coverity defect check
@@ -115,18 +111,18 @@ def cov_commit():
     # If yes, developer should first check the report, then decide whether to commit - use force commit when necessary
     # If no, git commit is directly followed
     if FORCE_COMMIT is True:
-        print "Force commit"
+        print "Force commit..."
         # I think a commit to CC for a single pull request from developer is not ideal
         # A nightly build is responsible for analyzing all the pull requests and commit to CC
         # But I preserve the option here
         runBash(base_commit)
     else:
-        print "preview commit"
+        print "Preview commit..."
         runBash(preview_commit)
-        if (subprocess.call(['grep', '-q', '"presentInComparisonSnapshot" : false,', 'report_v2.json']) == 0):
+        if (subprocess.call(['grep', '-q', '"presentInComparisonSnapshot" : false,', 'preview_report.json']) == 0):
             print '''
                 New defect is found from your commit.
-                Find details in report_v2.json or use run.sh -f to force commit.
+                Find details in preview_report.json or use run.sh -f to force commit.
                 '''
             return
         else:
