@@ -33,7 +33,7 @@ Coverity Playground - Kill your working hours
       - Select defect filter options (e.g. select impact is among 'high')
       - Select 'Fail the build if matching defects are found'
       - The options can take effect without using Coverity plugin to build/analyze/
-        commits, etc. You can use your own build scritxl
+        commits, etc. You can use your own build script to run Coverity commands.
 
     LDAP
 
@@ -55,4 +55,15 @@ Coverity Playground - Kill your working hours
       simple mapping in System -> Automatic Owner Assignment
       - Import customized .json file
     - Add cov-import-scm between cov-build and cov-analyze to import SCM data
+
+    fast desktop
+
+    - It saves time by only building and analyzing modified files
+    - Coverity defects clear before check-in
+
+    - Consider use plugin for IDEs first, which is the most convenient method
+    - Consider the style in incremental build in run.py, which gives you a plain text
+      for the details of defects
+    - Setup ~/.coverity/coverity.conf. But this file only works with cov-run-desktop, 
+      which means you still have to give options like 'host' and 'user' in other commands 
 
