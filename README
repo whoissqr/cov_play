@@ -1,17 +1,19 @@
 Coverity Playground - Kill your working hours
 
-    This place will help you play with all the fancy functionalies such as Jenkins,
-    JIRA, Web API, and E-mail notification.
+    This place helps FAEs to setup a basic Coverity environment for demo purpose.
 
-    Work flow
+    It will also help you play with all the fancy functionalies about Coverity SDLC 
+    integration such as Jenkins, JIRA, Web API, and SCM.
+
+    Work Flows
 
     - developers use run.py to analyse only the modified code by Coverity before
       check-in into git
         - fast incremental build/analyze
         - clean before check-in
         - No inter-procedural defects
-    - Server CI runs run.sh for a nightly build and cov-commit-defect to Coverity
-      connect
+    - Server CI (Jenkins) runs run.sh for a nightly build and cov-commit-defect to 
+      Coverity connect
 
     Jenkins
 
@@ -47,14 +49,33 @@ Coverity Playground - Kill your working hours
     - Tip: LDAP default user name is initial of first name + last name, like
       ychen for myself
 
-    git defect auto assignment
+    Defect Auto Assignment Based on Git
 
-    - Ensure test e-mail is sent and received in email notification and delivery 
     - Projects & Streams -> select stream -> Owner Assignment -> Derieved from SCM
     - The git user name read by Coverity is in e-mail format. Therefore, you need a
       simple mapping in System -> Automatic Owner Assignment
       - Import customized .json file
-    - Add cov-import-scm between cov-build and cov-analyze to import SCM data
+    - Add cov-import-scm command between cov-build and cov-analyze to import SCM data
+    - defect is automatically assigned to author. Author name can also be seen in line
+      with code
+      
+    E-mail Notification
+
+    - Ensure test e-mail is sent and received in email notification and delivery
+    - Setup view under 'Issues: by Snapshot' for a component
+    - Setup 'notification' for the view - users/groups and date/time
+    - default e-mail contains accumulation of defects of all time. Setup 'Snapshot 
+      Scope' for newly introduced defects only
+      e.g. Show: last()
+           Compared to: lastBefore(last())
+
+    Web Service API
+
+    - Implementation is not for free (free beer, free speech, or whatever kind)
+    - So read the document Coverity® Platform Web Services API Reference
+    - Notice some APIs may not be available on old versions
+    - FAE can find some internal examples from your colleague
+    
 
     fast desktop
 
